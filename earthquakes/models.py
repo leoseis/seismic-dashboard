@@ -2,7 +2,7 @@ from django.db import models
 
 class Earthquake(models.Model):
 
-    magnitude = models.FloatField()
+    magnitude = models.FloatField(db_index=True)
     depth = models.FloatField()
 
     latitude = models.FloatField()
@@ -10,7 +10,7 @@ class Earthquake(models.Model):
 
     location = models.CharField(max_length=255)
 
-    time = models.DateTimeField()
+    time = models.DateTimeField(db_index=True)
 
     source = models.CharField(max_length=50, default="USGS")
 
