@@ -16,7 +16,6 @@ class Command(BaseCommand):
         self.stdout.write("Fetching earthquake data...")
 
         response = requests.get(USGS_URL)
-
         data = response.json()
 
         count = 0
@@ -34,15 +33,17 @@ class Command(BaseCommand):
             latitude = coords[1]
             depth = coords[2]
 
+            # convert timestamp
             time = datetime.fromtimestamp(timestamp / 1000)
 
-            earthquake, created = Earthquake.objects.get_or_create(
+            usgs_id = eq["id"]
 
-                magnitude=magnitude or 0,
-                location=location,
-                time=time,
-
+            earthquake, created = Earthquake.objects.update_or_create(
+                usgs_id=usgs_id,
                 defaults={
+                    "magnitude": magnitude or 0,
+                    "location": location,
+                    "time": time,
                     "longitude": longitude,
                     "latitude": latitude,
                     "depth": depth,
