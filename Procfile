@@ -1,0 +1,1 @@
+web: gunicorn seismic_api.wsgi
