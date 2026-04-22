@@ -4,10 +4,7 @@ from django.http import JsonResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    # ✅ include ONLY ONCE
     path('api/', include('earthquakes.urls')),
-
     # optional health check
     path('', lambda request: JsonResponse({"status": "API running"})),
 ]
